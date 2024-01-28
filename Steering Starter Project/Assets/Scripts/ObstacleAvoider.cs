@@ -2,19 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisionAvoider : Kinematic
+public class ObstacleAvoider : Kinematic
 {
-    CollisionAvoidance myMoveType;
+    ObstacleAvoidance myMoveType;
     LookWhereGoing myRotateType;
-
-	public Kinematic[] myTargets;
 
     // Start is called before the first frame update
     void Start()
     {
-        myMoveType = new CollisionAvoidance();
+        myMoveType = new ObstacleAvoidance();
         myMoveType.character = this;
-        myMoveType.targets = myTargets;
+        myMoveType.target = myTarget;
 
         myRotateType = new LookWhereGoing();
         myRotateType.character = this;

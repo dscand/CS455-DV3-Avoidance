@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 2601870416531999018}
   - component: {fileID: -4673970263061951388}
   m_Layer: 0
-  m_Name: avoider
+  m_Name: collisionAvoider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

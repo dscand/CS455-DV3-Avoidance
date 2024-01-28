@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Kinematic : MonoBehaviour
 {
-    public Vector3 linearVelocity;
-    public float angularVelocity;  // Millington calls this rotation
+    public Vector3 linearVelocity = Vector3.zero;
+    public float angularVelocity = 0f;  // Millington calls this rotation
     // because I'm attached to a gameobject, we also have:
     // rotation <<< Millington calls this orientation
     // position
