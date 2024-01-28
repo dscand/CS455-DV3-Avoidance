@@ -73,7 +73,6 @@ public class CollisionAvoidance : SteeringBehavior
         }
 
 
-        Debug.Log(shortestTime);
         // Avoid the target.
         targetRelativePos.Normalize();
 
