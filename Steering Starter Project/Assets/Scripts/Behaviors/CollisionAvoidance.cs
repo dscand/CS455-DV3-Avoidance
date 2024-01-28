@@ -10,7 +10,7 @@ public class CollisionAvoidance : SteeringBehavior
     float maxAcceleration = 100f;
 
     // The collision radius of a character (assuming all characters have the same radius here).
-    float radius = 1f;
+    float radius = 0.5f;
 
     public override SteeringOutput getSteering()
     {
@@ -29,11 +29,10 @@ public class CollisionAvoidance : SteeringBehavior
         // Loop through each target
         foreach (Kinematic target in targets) {
             // Calculate the time to collision.
-            Vector3 relativePos = target.transform.position - character.transform.position;
-            Vector3 relativeVel = target.linearVelocity - character.linearVelocity;
+            Vector3 relativePos = character.transform.position - target.transform.position;
+            Vector3 relativeVel = character.linearVelocity - target.linearVelocity;
             float relativeSpeed = relativeVel.magnitude;
-            float timeToCollision = Vector3.Dot(relativePos, relativeVel) / (relativeSpeed * relativeSpeed);
-            Debug.Log(timeToCollision);
+            float timeToCollision = -Vector3.Dot(relativePos, relativeVel) / (relativeSpeed * relativeSpeed);
 
             // Check if it is going to be a collision at all.
             float distance = relativePos.magnitude;
@@ -43,7 +42,7 @@ public class CollisionAvoidance : SteeringBehavior
             }
 
             // Check if it is the shortest.
-            if (timeToCollision > 0 && timeToCollision < shortestTime) {
+            if (timeToCollision > 0 && timeToCollision < 2f && timeToCollision < shortestTime) {
                 // Store the time, target, and other data.
                 shortestTime = timeToCollision;
                 firstTarget = target;
@@ -65,7 +64,7 @@ public class CollisionAvoidance : SteeringBehavior
         // If we're going to hit exactly, or if we're already
         // colliding, then do the steering based on current position.
         if (firstMinSeparation <= 0 || firstDistance < 2 * radius) {
-            targetRelativePos = firstTarget.transform.position - character.transform.position;
+            targetRelativePos = character.transform.position - firstTarget.transform.position;
         }
 
         // Otherwise calculate the future relative position.
@@ -74,6 +73,7 @@ public class CollisionAvoidance : SteeringBehavior
         }
 
 
+        Debug.Log(shortestTime);
         // Avoid the target.
         targetRelativePos.Normalize();
 
